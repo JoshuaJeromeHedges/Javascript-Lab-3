@@ -1,23 +1,8 @@
-let studentScores = [
+let scores = [
   { name: "Jane", score: 95, date: "2020 - 01 - 24", passed: true },
-  {
-    name: "Joe",
-    score: 77,
-    date: "2018 - 05 - 14",
-    passed: true,
-  },
-  {
-    name: "Jack",
-    score: 59,
-    date: "2019 - 07 - 05",
-    passed: false,
-  },
-  {
-    name: "Jill",
-    score: 88,
-    date: "2020 - 04 - 02",
-    passed: true,
-  },
+  { name: "Joe", score: 77, date: "2018 - 05 - 14", passed: true },
+  { name: "Jack", score: 59, date: "2019 - 07 - 05", passed: false },
+  { name: "Jill", score: 88, date: "2020 - 04 - 02", passed: true },
 ];
 
 const addScore = (array, newName, newScore, newDate) => {
@@ -27,10 +12,11 @@ const addScore = (array, newName, newScore, newDate) => {
     date: newDate,
     passed: newScore >= 60,
   };
+
   array.push(newObject);
 };
+addScore(scores, "Janice", 66, "2019 - 06 - 06");
 
-addScore(studentScores, "Janice", 66, "2019 - 06 - 06");
 // console.log(studentScores);
 
 const deleteScoreByIndex = (array, index) => {
@@ -38,18 +24,19 @@ const deleteScoreByIndex = (array, index) => {
   // the splice method.
   array.splice(index, 1);
 };
-deleteScoreByIndex(studentScores, 0);
+deleteScoreByIndex(scores, 1);
 // console.log(studentScores);
 
-function deleteScoreByName(array, name) {
+const deleteScoreByName = (array, name) => {
   // Functionality: remove the object from the array that has the provided name.
   // Incorporate the findIndex method and the splice method.
-  const indexToRemove = array.findIndex((scoreElement) => {
-    return scoreElement.name === name;
+  let indexToRemove = array.findIndex((person) => {
+    return person.name === name;
   });
   array.splice(indexToRemove, 1);
-}
-deleteScoreByName(studentScores, "Jack");
+};
+
+deleteScoreByName(scores, "Jack");
 // console.log(studentScores);
 
 const editScore = (array, index, score) => {
@@ -57,58 +44,54 @@ const editScore = (array, index, score) => {
   // conditional statements to set the value for the passed property to true if the
   // score is greater than or equal to 60 and false otherwise.
 
-  let passed = null;
-  if (score >= 60) {
-    passed = true;
-  } else {
-    passed = false;
-  }
   array[index].score = score;
-  array[index].passed = passed;
+  array[index].passed = score >= 60;
 };
 
-editScore(studentScores, 0, 45);
-console.log(studentScores);
+editScore(scores, 2, 99);
+// console.log(scores);
 
 const findScoreByName = (array, name) => {
-  return array.find((scoreElement) => {
-    return (scoreElement.name = name);
+  return array.find((person) => {
+    return person.name === name;
   });
 };
 
-console.log(findScoreByName(studentScores, "Jill"));
+// console.log(findScoreByName(scores, "Jill"));
 
 const findLowestScore = (array) => {
-  let currentLowestScore = array[0];
-  array.forEach((element) => {
-    if (element.score < currentLowestScore.score) {
-      currentLowestScore = element;
+  let lowestScore = array[0];
+  array.forEach((person) => {
+    if (person.score < lowestScore.score) {
+      lowestScore = person;
     }
   });
-  return currentLowestScore;
+  //   return with the lowest score within the score array, so searches for lowestScore.within score element in the objects
+  return lowestScore.score;
 };
-console.log(findLowestScore(studentScores));
+// console.log(findLowestScore(scores));
 
 const findAverageQuizScore = (array) => {
-  let currentScores = 0;
-  for (let object of array) {
-    currentScores += object.score;
+  let total = 0;
+  for (let person of array) {
+    total += person.score;
   }
 
-  return currentScores / array.length;
+  return total / array.length;
 };
-console.log(findAverageQuizScore(studentScores));
+// console.log(findAverageQuizScore(scores));
 
 const filterScores = (array, value) => {
   return array.filter((object) => {
     return object.name === value;
   });
 };
-console.log(filterScores(scores, "name", "Joe"));
+// console.log(filterScores(scores, "name", "Joe"));
 
+// try using if else statements instead!!!
 const sortScoresAsc = (array) => {
   return array.sort((a, b) => {
-    return a.score < b.score;
+    return a.scores < b.scores ? 1 : -1;
   });
 };
-console.log(sortScoresAsc(studentScores));
+// console.log(sortScoresAsc(scores));
